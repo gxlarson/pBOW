@@ -1,0 +1,19 @@
+.DS_Store
+*.pyc
+*.json~
+*.txt~
+
+# evaluation scripts
+eval_*.py
+
+# custom implementation of kmeans algorithm
+kmeans.py
+
+# old readme
+README.txt
+
+# SMVS (stanford) paintings and books
+data/books/
+data/paintings/
+images/books/
+images/paintings/
