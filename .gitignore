@@ -17,3 +17,7 @@ data/books/
 data/paintings/
 images/books/
 images/paintings/
+
+# utilities
+utilities/param_sweep.py
+utilities/results.txt
