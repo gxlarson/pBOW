@@ -1,15 +1,11 @@
 import sys
 import unittest
 import numpy as np
-
 import sys 
-sys.path.append('..')
-
 from tree import (Cluster, constructTree, findChild, Node, Tree)
+from matcher import Matcher
+from utilities.utils import load_data
 
-DATA = np.array([[1,0],[1.1,0],[0.9,0],\
-                 [0,0],[0,0.1],[0.1,0],\
-                 [0,1],[0,0.9],[0,1.1]])
 
 class TestSimpleTree(unittest.TestCase):
     """
@@ -51,16 +47,6 @@ class TestSimpleTree(unittest.TestCase):
         assert isinstance(t.dbLengths, dict)
         assert isinstance(t.imageIDs, list)
 
-    #def test_construct_tree(self):
-    #    """
-    #    test tree construction function
-    #    """
-    #    children = 3
-    #    levels = 1
-    #    data = DATA
-    #    tree_array = constructTree(children, levels, data)
-    #    self.assertEqual(len(tree_array), 3)
-
     def test_find_child(self):
         """
         test find_child function
@@ -73,32 +59,32 @@ class TestSimpleTree(unittest.TestCase):
         node = 10
         index = findChild(children, node, 1)
         self.assertEqual(index, 52)
-'''
-class TestTree(unittest.TestCase):
-    def setUp(self):
-        self.children = 3
-        self.levels = 1
-        self.db_desc = [DATA[0:3,:], DATA[3:6,:], DATA[6:9,:]]
-        self.db_names = ['im1', 'im2', 'im3']
-        self.tree_array = constructTree(self.children,
-                                        self.levels,
-                                        self.db_desc)
-        self.t = Tree(children, levels, tree_array)
 
-    def test_tree_propogate(self):
+    def test_tree(self):
         """
-        tree propogate method test
+        full test of tree construction and query
         """
-        pt = self.db_desc[0][0,:]
-        index = self.t.propogate(pt)
-        in_bound = index < 3 and index >= 0
-        assert in_bound is True
+        L = 4 # num levels in tree (depth)
+        C = 10 # branching factor (num children per each node)
+        dataset = "bottles" # one of {"bottles","books","paintings"}
+        (image_names, image_descriptors, image_keypoints) = \
+            load_data('database', 'bottles')
+        (q_ids, q_descriptors, q_kps) = load_data('query', 'bottles', 4)
+        features = []
+        for feats in image_descriptors:
+            features += [np.array(fv,dtype='float32') for fv in feats]
+        features = np.vstack(features)
+        treeArray = constructTree(C, L, np.vstack(features))
+        t = Tree(C, L, treeArray)
+        t.build_tree(image_names, image_descriptors)
+        t.set_lengths()
+        matcher = Matcher(image_descriptors, image_keypoints, image_names)
+        matcher.update_tree(t)
+        matcher.add_queries(q_descriptors, q_kps)
+        result = matcher.query(4)
+        print result
+        result_im = str(result[0][0][0])
+        self.assertEqual(result_im, '004.jpg')
 
-    def test_tree_build_tree(self):
-        """
-        tree object build_tree method tests
-        """
-        self.t.build_tree(self.db_names, self.db_desc)
-'''
 if __name__ == '__main__':
     unittest.main()

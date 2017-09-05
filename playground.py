@@ -2,7 +2,9 @@
 example usage script
 """
 
+import sys
 from matcher import *
+from utilities.utils import load_data
 
 # parameters for building hierarchical k-means tree
 L = 4 # num levels in tree (depth)
@@ -10,32 +12,14 @@ C = 10 # branching factor (num children per each node)
 
 dataset = "bottles" # one of {"bottles","books","paintings"}
 
-
 # load database information
 print "--- loading database images ---"
-with open('data/' + dataset + '/image_names.json','r') as r:
-    # list of database image names
-    image_names = json.load(r)
-with open('data/' + dataset + '/descriptors.json','r') as r:
-    # list of database image descriptors 
-    image_descriptors = json.load(r)
-with open('data/' + dataset + '/keypoints.json','r') as r:
-    image_keypoints = json.load(r)
-
+(image_names, image_descriptors, image_keypoints) = \
+    load_data('database', 'bottles')
 
 # load query information
 print "---- loading query images ----"
-q_descriptors = []
-with open('data/' + dataset + '/q4_descriptors.json','r') as r:
-    q_descriptors += json.load(r)
-q_ids = []
-with open('data/' + dataset + '/q4_image_names.json','r') as r:
-    q_ids += json.load(r)
-q_kps = []
-with open('data/' + dataset + '/q4_keypoints.json','r') as r:
-    q_kps += json.load(r)
-
-
+(q_ids, q_descriptors, q_kps) = load_data('query', 'bottles', 4)
 
 FEATS = []
 # make FEATS list into a list of float32; each element in list is a feature descriptor
