@@ -2,7 +2,7 @@
 
 pBOW is a python implementation of an image retrieval pipeline that uses a hierarchical k-means clustering quantization scheme. pBOW uses OpenCV for some of the supporting computer vision algorithms, such as SIFT feature detection and description, and geometric verification using RANSAC.
 
-The pipeline is based on the papers [Scalable Recognition with a Vocabulary Tree](http://www.cs.ubc.ca/~lowe/525/papers/nisterCVPR06.pdf) and [Mobile Visual Search](http://reznik.org/papers/SPM11_mobile_visual_search.pdf).
+The pipeline is based on the papers [Scalable Recognition with a Vocabulary Tree (2006)](http://www.cs.ubc.ca/~lowe/525/papers/nisterCVPR06.pdf) and [Mobile Visual Search (2011)](http://reznik.org/papers/SPM11_mobile_visual_search.pdf).
 
 # Image Rretrieval Pipeline
 
@@ -20,7 +20,7 @@ Given the query image, we re-rank the top m database images based on the inlier 
 
 A sample set of database and query images is located in the `images/bottles` directory. Database images can be found in `images/bottles/database/` directory. These images range from `001` to `100`. Each image is a unique stock photo of a beer bottle label.
 
-Corresponding query images can be found in `images/bottles/query/`. This directory contains 4 sub-directories, called `batch_1` through `batch_4`. Each bottle appears in each batch only once, so there are 400 query images in `images/bottles/query/`. This is the same scheme used by the [Standford Mobile Visual Search dataset](http://web.cs.wpi.edu/~claypool/mmsys-dataset/2011/stanford/) (i.e. 4 query images per database image).
+Corresponding query images can be found in `images/bottles/query/`. This directory contains 4 sub-directories, called `batch_1` through `batch_4`. Each bottle appears in each batch only once, so there are 400 query images in `images/bottles/query/`. This is the same scheme used by the [Standford Mobile Visual Search dataset (2011)](http://web.cs.wpi.edu/~claypool/mmsys-dataset/2011/stanford/) (i.e. 4 query images per database image).
 
 SIFT features for both database and query images have been pre-computed and are located in the `data/bottles/` directory. This directory contains files `*descriptors.json`, `*image_names.json`, and `*keypoints.json`. If a file is appended with `q*_`, then it is for a query image set. The `*descriptors.json` files contain SIFT descriptors, and the  `*keypoints.json` files contain the corresponding SIFT feature locations (used by geometric verification).
 
