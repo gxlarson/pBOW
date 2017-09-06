@@ -12,6 +12,10 @@ C = 10 # branching factor (num children per each node)
 
 dataset = "bottles" # one of {"bottles","books","paintings"}
 
+query_set = 4 # one of {1,2,3,4}
+
+# ---------------------------------------------------------------------
+
 # load database information
 print "--- loading database images ---"
 (image_names, image_descriptors, image_keypoints) = \
@@ -19,10 +23,13 @@ print "--- loading database images ---"
 
 # load query information
 print "---- loading query images ----"
-(q_ids, q_descriptors, q_kps) = load_data('query', 'bottles', 4)
+(q_ids, q_descriptors, q_kps) = load_data('query',
+                                          'bottles',
+                                          query_set)
 
 FEATS = []
-# make FEATS list into a list of float32; each element in list is a feature descriptor
+# make FEATS list into a list of float32; 
+# each element in list is a feature descriptor
 for feats in image_descriptors:
     FEATS += [np.array(fv,dtype='float32') for fv in feats]
 
