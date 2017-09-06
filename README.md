@@ -22,7 +22,7 @@ A sample set of database and query images is located in the `images/bottles` dir
 
 Corresponding query images can be found in `images/bottles/query/`. This directory contains 4 sub-directories, called `batch_1` through `batch_4`. Each bottle appears in each batch only once, so there are 400 query images in `images/bottles/query/`. This is the same scheme used by the [Standford Mobile Visual Search dataset (2011)](http://web.cs.wpi.edu/~claypool/mmsys-dataset/2011/stanford/) (i.e. 4 query images per database image).
 
-![alt text](https://github.com/gxlarson/pBOW/blob/master/images/bottles/query/batch_4/069.jpg "sample query image")
+![alt text](https://github.com/gxlarson/pBOW/blob/master/images/bottles/query/batch_4/069.jpg | width=200)
 
 SIFT features for both database and query images have been pre-computed and are located in the `data/bottles/` directory. This directory contains files `*descriptors.json`, `*image_names.json`, and `*keypoints.json`. If a file is appended with `q*_`, then it is for a query image set. The `*descriptors.json` files contain SIFT descriptors, and the  `*keypoints.json` files contain the corresponding SIFT feature locations (used by geometric verification).
 
